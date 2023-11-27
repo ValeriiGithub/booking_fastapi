@@ -4,10 +4,16 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/hotels/{hotel_id}")
-def get_hotels(hotel_id: int, date_from, date_to):
-    # return "Отель Бридж Резорт 5 звезд"
-    return hotel_id, date_from, date_to
+@app.get("/hotels")
+def get_hotels(
+        location,
+        date_from,
+        date_to,
+        stars,
+        has_spa,
+):
+
+    return date_from, date_to
 
 
 if __name__ == "__main__":
