@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+
 @app.get("/hotels")
 def get_hotels(
         location: str,
@@ -15,6 +16,7 @@ def get_hotels(
         stars: Optional[int] = Query(None, ge=1, le=5),
 ):
     return date_from, date_to
+
 
 class SBooking(BaseModel):
     """
