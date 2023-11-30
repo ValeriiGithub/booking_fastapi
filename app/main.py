@@ -9,12 +9,6 @@ from pydantic import BaseModel
 app = FastAPI()
 
 
-# class SHotel(BaseModel):
-#     address: str
-#     name: str
-#     stars: int
-
-
 class HotelsSearchArgs:
     """
     Аргументы для get запросов
