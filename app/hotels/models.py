@@ -12,4 +12,3 @@ class Hotels(Base):
     services = Column(JSON)
     rooms_quantity = Column(Integer, nullable=False)
     image_id = Column(Integer)
-   
