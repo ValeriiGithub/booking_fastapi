@@ -1,19 +1,14 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-from settings import DATABASE_URL
-
-
-# Создаем URL БД
-DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-# asyncpg - асинхронная работа
-# psycopg2 - синхронная работа
+from config import settings
 
 # Создаем синглтон подключения к БД по URL
-engine = create_async_engine(DATABASE_URL)
+engine = create_async_engine(settings.DATABASE_URL)
 
 # Создаем генератор сессий (транзакции)
 async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
 
 class Base(DeclarativeBase):
     """
