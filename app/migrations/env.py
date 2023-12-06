@@ -8,7 +8,7 @@ from sqlalchemy import pool
 
 from alembic import context
 # говорим Alembic, что он находится в папке app, что бы он понимал как импорты работают
-sys.path.insert(0, dirname(dirname(abspath(__file__))))
+sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
 from app.config import settings
 from app.database import Base
