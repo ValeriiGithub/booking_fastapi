@@ -1,7 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm.session import sessionmaker
 
-from config import settings
+from app.config import settings
 
 # Создаем синглтон подключения к БД по URL
 engine = create_async_engine(settings.DATABASE_URL)
