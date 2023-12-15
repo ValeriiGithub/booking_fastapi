@@ -12,5 +12,5 @@ def get_bookings():
 
 
 @router.get("/{bookings_id}")
-def get_bookings(bookings_id):
+def get_bookings_2(bookings_id):
     pass
