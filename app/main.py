@@ -6,7 +6,7 @@ from typing import Optional, List
 from datetime import date
 from pydantic import BaseModel
 
-from app.bookings.router import router as router_bookings
+from bookings.router import router as router_bookings
 
 app = FastAPI()
 
