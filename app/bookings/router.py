@@ -7,7 +7,7 @@ router = APIRouter(
 
 
 @router.get("")
-def get_bookings():
+async def get_bookings():
     pass
 
 
