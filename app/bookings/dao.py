@@ -5,6 +5,10 @@ from app.bookings.models import Bookings
 
 
 class BookingDAO:
+    """
+    Клас для работы с БД.
+    self - убрано, чтобы каждый раз не создавать объект, а работать сразу с классом
+    """
     @classmethod
     async def find_all(cls):
         async with async_session_maker() as session:
