@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from datetime import date
+from typing import Optional
+
 import uvicorn
 from fastapi import FastAPI, Query, Depends
-from typing import Optional, List
-from datetime import date
 from pydantic import BaseModel
 
 from app.bookings.router import router as router_bookings
@@ -17,6 +18,7 @@ class HotelsSearchArgs:
     """
     Аргументы для get запросов
     """
+
     def __int__(
             self,
             location: str,
@@ -53,6 +55,7 @@ class SBooking(BaseModel):
 @app.post("/bookings")
 def add_booking(booking: SBooking):
     pass
+
 
 # if __name__ == "__main__":
 #     uvicorn.run("main:app", host="127.0.0.1", port=8001, reload=True)
