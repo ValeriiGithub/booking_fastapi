@@ -16,4 +16,4 @@ async def get_bookings():
         query = select(Bookings)  # SELECT * FROM bookings;
         result = await session.execute(query)  # исполни запрос query
         return result.scalars().all()
-    
+
