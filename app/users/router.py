@@ -9,6 +9,7 @@ router = APIRouter(
     tags=["Auth & Пользователи"],
 )
 
+
 @router.post("/register")
 async def register_user(user_data: SUserRegister):
     exiting_user = await  UsersDAO.find_one_or_none(email=user_data.email)
