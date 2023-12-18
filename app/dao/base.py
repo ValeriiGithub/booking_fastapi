@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, insert
 
 from app.database import async_session_maker
 
@@ -26,3 +26,10 @@ class BaseDAO:
             query = select(cls.model).filter_by(**filter_by)  # SELECT * FROM bookings;
             result = await session.execute(query)  # исполни запрос query
             return result.scalars().all()
+
+    @classmethod
+    async def add(cls, **data):
+        async with async_session_maker() as session:
+            query = insert(cls.model).values(**data)
+            await session.execute(query)
+            await session.commit()                  # Обновляем данные
