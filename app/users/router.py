@@ -15,3 +15,4 @@ async def register_user(user_data: SUserRegister):
     if exiting_user:
         raise HTTPException(status_code=500)
     hashed_password = get_password_hash(user_data.password)
+    await UsersDAO.add(email=user_data.email, hashed_password=hashed_password)
