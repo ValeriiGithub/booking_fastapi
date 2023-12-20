@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Response
 
 from app.users.auth import get_password_hash, authenticate_user, create_access_token
 from app.users.dao import UsersDAO
@@ -20,8 +20,10 @@ async def register_user(user_data: SUserRegister):
 
 
 @router.post("/login")
-async def login_user(user_data: SUserAuth):
+async def login_user(response: Response, user_data: SUserAuth):
     user = await authenticate_user(user_data.email, user_data.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     acces_token = create_access_token({"sub": user.id})
+    response.set_cookie("booking_acces_token", acces_token)
+    return acces_token
