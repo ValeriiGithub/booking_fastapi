@@ -50,7 +50,7 @@ class Settings(BaseSettings):
     ALGORITHM: str
 
     class Config:
-        env_file = ".env"
+        env_file = "app/.env"
 
 
 settings = Settings()
