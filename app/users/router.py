@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 
-from app.users.auth import get_password_hash, verify_password
+from app.users.auth import get_password_hash, authenticate_user
 from app.users.dao import UsersDAO
 from app.users.schemas import SUserRegister, SUserAuth
 
@@ -21,10 +21,6 @@ async def register_user(user_data: SUserRegister):
 
 @router.post("/login")
 async def login_user(user_data: SUserAuth):
-    user = await UsersDAO.find_one_or_none(email=user_data.email)
+    user = await authenticate_user(user_data.email, user_data.password)
     if not user:
-        raise HTTPException(500)
-    if user:
-        password_is_valid = verify_password(user_data.password, user.password)
-        if not password_is_valid:
-            raise HTTPException(500)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
