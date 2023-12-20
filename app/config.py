@@ -1,5 +1,3 @@
-from typing import Literal
-
 from pydantic import BaseSettings
 
 
@@ -7,17 +5,11 @@ class Settings(BaseSettings):
     # MODE: Literal["DEV", "TEST", "PROD"]
     # LOG_LEVEL: str
 
-    # DB_HOST: str
-    # DB_PORT: int
-    # DB_USER: str
-    # DB_PASS: str
-    # DB_NAME: str
-
-    DB_HOST = "localhost"
-    DB_PORT = 5432
-    DB_USER = "postgres"
-    DB_PASS = "postgres"
-    DB_NAME = "booking_db"
+    DB_HOST: str
+    DB_PORT: int
+    DB_USER: str
+    DB_PASS: str
+    DB_NAME: str
 
     # Способ ниже оказался чересчур сложным. Обратите внимание на лаконичный способ с @property
     # @root_validator
