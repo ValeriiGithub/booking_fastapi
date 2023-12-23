@@ -22,7 +22,7 @@ async def get_current_user(token: str = Depends(get_token)):
     except JWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     expire: str = payload.get("exp")
-    if (not expire) or (int(expire) < datetime.utcnow()):
+    if (not expire) or (int(expire) < datetime.utcnow().timestamp()):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     user_id: str = payload.get("sub")
     if not user_id:
