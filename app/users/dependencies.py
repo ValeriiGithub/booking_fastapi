@@ -35,6 +35,6 @@ async def get_current_user(token: str = Depends(get_token)):
 
 
 async def get_current_admin_user(current_user: Users = Depends(get_current_user)):
-    if current_user.role != "admin":
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    # if current_user.role != "admin":
+    #     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     return current_user
