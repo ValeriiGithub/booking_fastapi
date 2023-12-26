@@ -5,7 +5,6 @@ from jose import jwt, JWTError
 
 from app.config import settings
 from app.users.dao import UsersDAO
-from app.users.models import Users
 
 
 def get_token(request: Request):
@@ -32,9 +31,3 @@ async def get_current_user(token: str = Depends(get_token)):
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     return user
-
-
-async def get_current_admin_user(current_user: Users = Depends(get_current_user)):
-    # if current_user.role != "admin":
-    #     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    return current_user
