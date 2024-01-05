@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status, Response, Depends
 
-from app.exeptions import UserAlreadyExistsException, IncorrectEMailOrPasswordException
+from app.exeptions import UserAlreadyExistsException, IncorrectEmailOrPasswordException
 from app.users.auth import get_password_hash, authenticate_user, create_access_token
 from app.users.dao import UsersDAO
 from app.users.dependencies import get_current_user
@@ -26,7 +26,7 @@ async def register_user(user_data: SUserRegister):
 async def login_user(response: Response, user_data: SUserAuth):
     user = await authenticate_user(user_data.email, user_data.password)
     if not user:
-        raise IncorrectEMailOrPasswordException
+        raise IncorrectEmailOrPasswordException
     access_token = create_access_token({"sub": str(user.id)})
     response.set_cookie("booking_access_token", access_token, httponly=True)
     return {"access_token": access_token}
