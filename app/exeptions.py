@@ -25,6 +25,6 @@ IncorrectTokenFormatException = HTTPException(
     detail="Неверный формат токена"
 )
 
-UserIsNotPresentxEception = HTTPException(
+UserIsNotPresentException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
 )
