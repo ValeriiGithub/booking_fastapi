@@ -32,4 +32,4 @@ class BaseDAO:
         async with async_session_maker() as session:
             query = insert(cls.model).values(**data)
             await session.execute(query)
-            await session.commit()                  # Обновляем данные
+            await session.commit()  # Обновляем данные
