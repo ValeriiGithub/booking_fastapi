@@ -54,6 +54,10 @@ async def add(
             .cte("booked_rooms")
         )
 
+        # SELECT rooms.quantity - COUNT(booked_rooms.room_id) FROM rooms
+        # LEFT JOIN booked_rooms ON booked_rooms.room_id = rooms.id
+        # WHERE rooms.id = 1
+        # GROUP BY rooms.quantity, booked_rooms.room_id
 
         rooms_left = (
             select(
