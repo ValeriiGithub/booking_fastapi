@@ -83,6 +83,7 @@ app/.env
 # virtualenv
 venv/
 ENV/
+venv2/
 
 # Spyder project settings
 .spyderproject
