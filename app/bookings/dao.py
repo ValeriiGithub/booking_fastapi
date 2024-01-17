@@ -96,7 +96,7 @@ class BookingDAO(BaseDAO):
                 rooms_left = await session.execute(get_rooms_left)
                 rooms_left: int = rooms_left.scalar()
 
-                logger.debug(f"{rooms_left=}")
+                # logger.debug(f"{rooms_left=}")
 
                 if rooms_left > 0:
                     get_price = select(Rooms.price).filter_by(id=room_id)
@@ -138,4 +138,4 @@ class BookingDAO(BaseDAO):
                 "date_from": date_from,
                 "date_to": date_to,
             }
-            logger.error(msg, extra=extra, exc_info=True)
+            # logger.error(msg, extra=extra, exc_info=True)
