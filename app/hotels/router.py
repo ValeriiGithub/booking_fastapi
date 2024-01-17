@@ -14,9 +14,9 @@ router = APIRouter(prefix="/hotels", tags=["Отели"])
 @router.get("/{location}")
 @cache(expire=30)
 async def get_hotels_by_location_and_time(
-    location: str,
-    date_from: date = Query(..., description=f"Например, {datetime.now().date()}"),
-    date_to: date = Query(..., description=f"Например, {(datetime.now() + timedelta(days=14)).date()}"),
+        location: str,
+        date_from: date = Query(..., description=f"Например, {datetime.now().date()}"),
+        date_to: date = Query(..., description=f"Например, {(datetime.now() + timedelta(days=14)).date()}"),
 ) -> List[SHotelInfo]:
     if date_from > date_to:
         raise DateFromCannotBeAfterDateTo
@@ -34,6 +34,6 @@ async def get_hotels_by_location_and_time(
 # Тем не менее, он используется, так как эндпоинтом ранее мы уже задали получение
 # отелей по их локации вместо id.
 async def get_hotel_by_id(
-    hotel_id: int,
+        hotel_id: int,
 ) -> Optional[SHotel]:
     return await HotelDAO.find_one_or_none(id=hotel_id)
