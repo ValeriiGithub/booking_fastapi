@@ -8,6 +8,8 @@ from app.dao.base import BaseDAO
 from app.database import async_session_maker, engine
 from app.hotels.models import Hotels
 from app.hotels.rooms.models import Rooms
+
+
 # from app.logger import logger
 
 
@@ -71,3 +73,32 @@ class HotelDAO(BaseDAO):
             .group_by(Rooms.hotel_id)
             .cte("booked_hotels")
         )
+
+        get_hotels_with_rooms = (
+            # Код ниже можно было бы расписать так:
+            # select(
+            #     Hotels
+            #     booked_hotels.c.rooms_left,
+            # )
+            # Но используется конструкция Hotels.__table__.columns. Почему? Таким образом алхимия отдает
+            # все столбцы по одному, как отдельный атрибут. Если передать всю модель Hotels и
+            # один дополнительный столбец rooms_left, то будет проблематично для Pydantic распарсить
+            # такую структуру данных. То есть проблема кроется именно в парсинге ответа алхимии
+            # Пайдентиком.
+            select(
+                Hotels.__table__.columns,
+                booked_hotels.c.rooms_left,
+            )
+            .join(booked_hotels, booked_hotels.c.hotel_id == Hotels.id, isouter=True)
+            .where(
+                and_(
+                    booked_hotels.c.rooms_legt > 0,
+                    Hotels.location.like(f"%{location}%"),
+                )
+            )
+        )
+
+        async with async_session_maker() as session:
+            # logger.debug(get_hotels_with_rooms.compile(engine, compile_kwargs={"literal_binds": True}))
+            hotels_with_rooms = await session.execute(get_hotels_with_rooms)
+            return hotels_with_rooms.mappings().all()
