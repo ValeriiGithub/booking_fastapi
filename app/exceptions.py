@@ -52,3 +52,8 @@ class CannotBookHotelForLongPeriod(BookingException):
 class DateFromCannotBeAfterDateTo(BookingException):
     status_code = status.HTTP_409_CONFLICT,
     detail = "Дата ОТ не может быть после даты ДО"
+
+
+class RoomFullyBooked(BookingException):
+    status_code = status.HTTP_409_CONFLICT,
+    detail = "Все номера забронированы"
