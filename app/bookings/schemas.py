@@ -32,4 +32,3 @@ class SNewBooking(BaseModel):
     room_id: int
     date_from: date
     date_to: date
-   
