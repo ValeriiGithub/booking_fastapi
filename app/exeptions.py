@@ -41,3 +41,11 @@ class UserIsNotPresentException(BookingException):
 class RoomCannotBeBooked(BookingException):
     status_code = status.HTTP_409_CONFLICT,
     detail = "Не осталось свободных номеров"
+
+class CannotBookHotelForLongPeriod(BookingException):
+    status_code = status.HTTP_409_CONFLICT,
+    detail = "Не удается забронировать отель на длительный период"
+
+class DateFromCannotBeAfterDateTo(BookingException):
+    status_code = status.HTTP_409_CONFLICT,
+    detail = "Дата ОТ Не может быть после даты ДО"
