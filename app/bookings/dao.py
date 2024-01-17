@@ -139,3 +139,7 @@ class BookingDAO(BaseDAO):
                 "date_to": date_to,
             }
             # logger.error(msg, extra=extra, exc_info=True)
+
+    @classmethod
+    def delete(cls, id, user_id):
+        pass
