@@ -8,7 +8,6 @@ from fastapi import FastAPI, Query, Depends
 from pydantic import BaseModel
 
 from app.bookings.router import router as router_bookings
-from app.users.router import router as router_users
 
 # TODO: Не реализованы в коде следующие роутеры
 # from app.users.router import router_auth
