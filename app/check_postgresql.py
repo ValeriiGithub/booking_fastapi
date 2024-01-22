@@ -6,9 +6,9 @@ import psycopg2
 
 # Создайте соединение с вашей базой данных
 conn = psycopg2.connect(
-    dbname="your_database_name",
-    user="your_username",
-    password="your_password",
+    dbname="booking_db",
+    user="postgres",
+    password="postgres",
     host="localhost",  # Или другой хост, если ваша база данных расположена на удаленном сервере
     port="5432"  # Или другой порт, если он отличается от порта по умолчанию
 )
@@ -17,7 +17,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 # Выполните SQL-запрос
-cur.execute("SELECT * FROM your_table_name")
+cur.execute("SELECT * FROM hotels")
 
 # Получите результаты запроса
 rows = cur.fetchall()
