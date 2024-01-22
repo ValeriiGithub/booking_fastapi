@@ -8,8 +8,6 @@ from app.dao.base import BaseDAO
 from app.database import async_session_maker, engine
 from app.hotels.models import Hotels
 from app.hotels.rooms.models import Rooms
-
-
 # from app.logger import logger
 
 
@@ -36,14 +34,6 @@ class HotelDAO(BaseDAO):
         SELECT * FROM hotels
         LEFT JOIN booked_hotels ON booked_hotels.hotel_id = hotels.id
         WHERE rooms_left > 0 AND location LIKE '%Алтай%';
-
-        Этот запрос использует оператор WITH для определения двух общих табличных выражений (CTE): booked_rooms и booked_hotels. CTE - это временная таблица, которая существует только в рамках одного запроса. Они могут упростить и ускорить выполнение сложных запросов1.
-
-        Первый CTE, booked_rooms, выбирает идентификаторы номеров и количество забронированных номеров из таблицы bookings, где дата заезда или выезда попадает в период с 15 мая по 20 июня 2023 года. Затем он группирует результаты по идентификаторам номеров.
-
-        Второй CTE, booked_hotels, выбирает идентификаторы отелей и количество свободных номеров из таблицы rooms, используя левое объединение с CTE booked_rooms по идентификаторам номеров. Он вычитает количество забронированных номеров из общего количества номеров в каждом отеле и использует функцию COALESCE для замены NULL на 0. Затем он группирует результаты по идентификаторам отелей.
-
-        После определения CTE основной запрос выбирает все столбцы из таблицы hotels, используя левое объединение с CTE booked_hotels по идентификаторам отелей. Он фильтрует результаты, оставляя только те отели, где количество свободных номеров больше 0 и местоположение содержит подстроку ‘Алтай’. Это означает, что запрос возвращает информацию об отелях, которые имеют доступные номера в Алтае в указанный период.
         """
         booked_rooms = (
             select(Bookings.room_id, func.count(Bookings.room_id).label("rooms_booked"))
@@ -56,9 +46,9 @@ class HotelDAO(BaseDAO):
                     ),
                     and_(
                         Bookings.date_from <= date_from,
-                        Bookings.date_from > date_from,
-                    )
-                )
+                        Bookings.date_to > date_from,
+                    ),
+                ),
             )
             .group_by(Bookings.room_id)
             .cte("booked_rooms")
@@ -66,7 +56,7 @@ class HotelDAO(BaseDAO):
 
         booked_hotels = (
             select(Rooms.hotel_id, func.sum(
-                Rooms.quantity - func.coalesce(booked_rooms.c.rooms_booked, 0)
+                    Rooms.quantity - func.coalesce(booked_rooms.c.rooms_booked, 0)
             ).label("rooms_left"))
             .select_from(Rooms)
             .join(booked_rooms, booked_rooms.c.room_id == Rooms.id, isouter=True)
@@ -97,7 +87,6 @@ class HotelDAO(BaseDAO):
                 )
             )
         )
-
         async with async_session_maker() as session:
             # logger.debug(get_hotels_with_rooms.compile(engine, compile_kwargs={"literal_binds": True}))
             hotels_with_rooms = await session.execute(get_hotels_with_rooms)
