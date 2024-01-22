@@ -11,7 +11,7 @@ from app.hotels.schemas import SHotel, SHotelInfo
 router = APIRouter(prefix="/hotels", tags=["Отели"])
 
 
-@router.get("")
+@router.get("/")
 @cache(expire=30)
 async def get_hotels_by_location_and_time(
         location: str,
