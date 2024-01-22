@@ -92,7 +92,7 @@ class HotelDAO(BaseDAO):
             .join(booked_hotels, booked_hotels.c.hotel_id == Hotels.id, isouter=True)
             .where(
                 and_(
-                    booked_hotels.c.rooms_legt > 0,
+                    booked_hotels.c.rooms_left > 0,
                     Hotels.location.like(f"%{location}%"),
                 )
             )
