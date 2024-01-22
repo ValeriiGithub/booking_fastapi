@@ -46,11 +46,11 @@ class HotelsSearchArgs:
         self.stars = stars
 
 
-@app.get("/hotels")
-def get_hotels(
-        search_args: HotelsSearchArgs = Depends()
-):
-    return search_args
+# @app.get("/hotels")
+# def get_hotels(
+#         search_args: HotelsSearchArgs = Depends()
+# ):
+#     return search_args
 
 
 if __name__ == "__main__":
