@@ -188,5 +188,6 @@ fabric.properties
 # Files
 test_data.sql
 README.txt
+readme.txt
 
 main_old.py
