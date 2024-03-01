@@ -9,6 +9,7 @@ from app.users.router import router_auth, router_users
 from app.hotels.router import router as router_hotels
 
 from app.pages.router import router as router_pages
+from app.images.router import router as router_images
 
 app = FastAPI()
 
@@ -20,6 +21,7 @@ app.include_router(router_hotels)
 app.include_router(router_bookings)
 
 app.include_router(router_pages)
+app.include_router(router_images)
 
 
 
