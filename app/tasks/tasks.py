@@ -9,7 +9,9 @@ def process_pic(
 ):
     im_path = Path(path)
     im = Image.open(im_path)
-    im_resized_1000_500 = im.resize((1000, 500))
-    im_resized_200_100 = im.resize((200, 100))
-    im_resized_1000_500.save(f"app/static/imgages/resized_1000_500_{im_path.name}")
-    im_resized_200_100.save(f"app/static/imgages/resized_1000_500_{im_path.name}")
+    for width, height in [
+        (1000, 500),
+        (200, 100)
+    ]:
+        resized_img = im.resize(size=(width, height))
+        resized_img.save(f"app/static/images/resized_{width}_{height}_{im_path.name}")
