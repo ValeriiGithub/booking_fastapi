@@ -8,6 +8,7 @@ from app.exceptions import RoomCannotBeBooked
 # from app.tasks.tasks import send_booking_confirmation_email
 from app.users.dependencies import get_current_user
 from app.users.models import Users
+from app.tasks.tasks import send_booking_confirmation_email
 
 router = APIRouter(
     prefix="/bookings",
@@ -36,7 +37,7 @@ async def add_booking(
         raise RoomCannotBeBooked
     booking = parse_obj_as(SNewBooking, booking).dict()
     # Celery - отдельная библиотека
-    # send_booking_confirmation_email.delay(booking, user.email)
+    send_booking_confirmation_email.delay(booking, user.email)
     # Background Tasks - встроено в FastAPI
     # background_tasks.add_task(send_booking_confirmation_email, booking, user.email)
     return booking
