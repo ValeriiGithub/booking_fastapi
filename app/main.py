@@ -55,3 +55,5 @@ def startup():
                               decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="cache")
 
+
+
