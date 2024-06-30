@@ -21,3 +21,4 @@ class Bookings(Base):
 
     def __str__(self):
         return f"Booking #{self.id}"
+        
