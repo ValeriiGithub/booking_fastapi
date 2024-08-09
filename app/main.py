@@ -17,7 +17,6 @@ from app.images.router import router as router_images
 
 from app.config import settings
 
-
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), "static")
